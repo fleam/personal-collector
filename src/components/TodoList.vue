@@ -11,9 +11,9 @@
     >
       <!-- 添加按钮图标 -->
       <template v-slot:append-inner>
-        <v-btn icon size="small" @click="addTodo" variant="text" class="action-icon-btn">
+        <a href="javascript:void(0)" @click="addTodo" class="action-icon-link">
           <i class="fa fa-plus text-green"></i>
-        </v-btn>
+        </a>
       </template>
     </v-text-field>
 
@@ -43,14 +43,15 @@
           ></v-checkbox-btn>
         </template>
 
+        <!-- 手动显示标题文本 -->
         <template v-slot:default>
-          <v-list-item-title></v-list-item-title>
+          <div class="todo-title"></div>
         </template>
 
         <template v-slot:append>
-          <v-btn icon size="small" @click="deleteTodo(todo.id)" variant="text" class="delete-icon-btn">
+          <a href="javascript:void(0)" @click="deleteTodo(todo.id)" class="delete-link">
             <i class="fa fa-trash text-red"></i>
-          </v-btn>
+          </a>
         </template>
       </v-list-item>
     </v-list>
@@ -65,7 +66,6 @@
 <script setup>
 import { ref } from 'vue'
 import { invoke } from '@tauri-apps/api/core'
-
 
 const todos = ref([])
 const newTodo = ref('')
@@ -119,6 +119,7 @@ async function deleteTodo(id) {
   padding: 1rem;
 }
 
+/* 输入框样式 */
 .todo-input :deep(.v-input__control .v-field) {
   border-radius: 8px;
   transition: box-shadow 0.3s ease;
@@ -128,6 +129,7 @@ async function deleteTodo(id) {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* 列表项样式 */
 .todo-list .todo-item {
   background-color: #f9f9f9;
   border-radius: 8px;
@@ -140,6 +142,7 @@ async function deleteTodo(id) {
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
+/* 复选框定制 */
 .todo-item .custom-checkbox :deep(.v-selection-control .v-input__control .v-field) {
   border-radius: 6px;
   height: 32px;
@@ -150,13 +153,55 @@ async function deleteTodo(id) {
   transform: scale(0.9);
 }
 
-.delete-icon-btn i {
+/* 自定义标题样式 */
+.todo-title {
+  font-size: 15px;
+  flex-grow: 1;
+  word-break: break-word;
+  line-height: 1.5;
+}
+
+/* 删除链接样式 */
+.delete-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease, color 0.2s ease;
+  margin-left: 8px;
+}
+
+.delete-link i {
+  font-size: 14px;
   color: red !important;
   transition: color 0.2s ease;
 }
 
-.delete-icon-btn:hover i {
-  color: darkred !important;
+.delete-link:hover {
+  background-color: rgba(255, 0, 0, 0.1);
+  color: darkred;
+}
+
+/* 添加按钮链接样式 */
+.action-icon-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  transition: background-color 0.2s ease, color 0.2s ease;
+}
+
+.action-icon-link:hover {
+  background-color: rgba(0, 150, 0, 0.1);
+  color: darkgreen;
 }
 
 /* 深色模式适配 */
@@ -166,5 +211,15 @@ async function deleteTodo(id) {
 
 .v-theme--dark .todo-list .todo-item:hover {
   background-color: #3a3a3a;
+}
+
+.v-theme--dark .delete-link:hover {
+  background-color: rgba(255, 87, 34, 0.1); /* Material Red A700 */
+  color: #ef5350;
+}
+
+.v-theme--dark .action-icon-link:hover {
+  background-color: rgba(56, 142, 60, 0.1);
+  color: #66bb6a;
 }
 </style>
