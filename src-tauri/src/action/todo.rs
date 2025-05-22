@@ -3,7 +3,7 @@
 use directories::ProjectDirs;
 use rusqlite::{Connection, Result as SqlResult};
 use serde::Serialize;
-use std::path::PathBuf;
+use std::path::{PathBuf};
 
 #[derive(Debug, Serialize)]
 pub struct Todo {
@@ -14,7 +14,7 @@ pub struct Todo {
 
 // 初始化数据库连接和表
 fn init_db() -> SqlResult<Connection> {
-    let proj_dirs = ProjectDirs::from("com", "fleam", "personal_collector")
+    let proj_dirs: ProjectDirs = ProjectDirs::from("com", "fleam", "personal_collector")
         .expect("Failed to create ProjectDirs");
 
     let mut path: PathBuf = proj_dirs.data_dir().to_path_buf();
@@ -65,6 +65,11 @@ pub(crate) async fn get_todos() -> Result<Vec<Todo>, String> {
 pub(crate) async fn add_todo(title: String) -> Result<(), String> {
     tauri::async_runtime::spawn_blocking(move || {
         let conn = init_db().unwrap();
+        if let Some(p) = conn.path() {
+            if p.exists() {
+                println!("Database exists: {}", p.display());
+            }
+        }
         conn.execute("INSERT INTO todos (title) VALUES (?)", &[&title])
             .unwrap();
         Ok(())

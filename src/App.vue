@@ -23,15 +23,17 @@
             </v-card>
           </v-col>
 
-          <!-- 示例模块卡片 -->
-          <v-col cols="4" class="pa-2" v-for="module in modules" :key="module.title">
+          <!-- 本地音乐 -->
+          <v-col cols="4" class="pa-2">
             <v-card class="card">
-              <v-card-title class="card-header">{{ module.title }}</v-card-title>
+              <v-card-title class="card-header">本地音乐</v-card-title>
               <v-card-text class="card-content">
-                <p>{{ module.description }}</p>
+                <MusicCard />
               </v-card-text>
             </v-card>
           </v-col>
+
+    
         </v-row>
       </v-container>
     </v-main>
@@ -41,16 +43,7 @@
 <script setup lang="ts">
 import TodoList from './components/TodoList.vue'
 import WeatherCard from './components/WeatherCard.vue'
-
-const modules = [
-  { title: '备忘录', description: '功能开发中...' },
-  { title: '日历', description: '功能开发中...' },
-  { title: '便签', description: '功能开发中...' },
-  { title: '音乐播放器', description: '功能开发中...' },
-  { title: '时钟', description: '功能开发中...' },
-  { title: '笔记', description: '功能开发中...' },
-  { title: '设置', description: '功能开发中...' }
-]
+import MusicCard from './components/MusicCard.vue'
 </script>
 
 <style scoped>

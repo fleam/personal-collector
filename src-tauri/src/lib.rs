@@ -11,7 +11,8 @@ pub fn run() {
             action::todo::add_todo,
             action::todo::toggle_todo,
             action::todo::delete_todo,
-            action::weather::get_weather_for_city
+            action::weather::get_weather_for_city,
+            action::music::get_local_music_list
         ]);
 
     builder

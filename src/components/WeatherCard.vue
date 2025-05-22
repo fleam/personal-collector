@@ -12,9 +12,7 @@
             {{ data.data.wendu }}°C
             <!-- {{ data.data.forecast?.[0]?.type || '未知' }} -->
             <i :class="getIconClass(data.data.forecast?.[0]?.type || '')"></i>
-
-            最高温 {{ formatTemp(data.data.forecast?.[0]?.high) }}°C
-            最低温 {{ formatTemp(data.data.forecast?.[0]?.low) }}°C
+            {{ formatTemp(data.data.forecast?.[0]?.high) }}°C - {{ formatTemp(data.data.forecast?.[0]?.low) }}°C
             湿度 {{ data.data.shidu }}
           </div>
         </v-col>
