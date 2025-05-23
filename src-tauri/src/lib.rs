@@ -12,7 +12,12 @@ pub fn run() {
             action::todo::toggle_todo,
             action::todo::delete_todo,
             action::weather::get_weather_for_city,
-            action::music::get_local_music_list
+            action::music::get_local_music_list,
+            action::calendar::get_holidays,
+            action::event::get_events,
+            action::event::add_event,
+            action::event::update_event_status,
+            action::event::delete_event
         ]);
 
     builder
